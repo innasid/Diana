@@ -1,0 +1,67 @@
+Create a login form in react, on clicking login button the button should get disabled
+Finally, it has to show login is successful of unsuccessful
+
+
+Router
+
+Step 1:
+
+we need to add the router library as below:
+
+npm install react-router-dom --save
+
+Step 2:
+
+When ever react router has to be created we need to add the below libraries
+
+import {BrowserRouter as Router,Route,Switch}
+
+step 3:
+
+we need to create a browser router
+
+we need to create route, link, path and switch
+
+Path is the URL where or which component we need to call
+
+==
+
+create a login and home page 
+
+copy the samples of bootstrap
+
+in homepage we should have a list of product with a image.
+whichever the product is clicked, it has to be added to the cart.
+
+==
+
+react 
+ui material
+json server
+redux
+
+<container
+      <Textfield id="outlined-basic" label="Outlined" variant="outlined">
+
+      <Textfield id="outlined-basic" label="Filled" variant="outlined">
+
+      <Textfield id="outlined-basic" label="Standard" variant="outlined">
+
+
+****************
+
+
+JSON server:
+
+1.install JSON server globally
+
+npm install -g json server
+
+create Reg component contains id, fname, Email id, password and store it in a db using post method.
+
+
+
+
+
+
+

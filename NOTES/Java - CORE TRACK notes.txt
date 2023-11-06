@@ -1,0 +1,1524 @@
+Java - CORE TRACK notes:
+
+11/09
+
+Core java:
+
+1. fundamental of the java
+2. With only core java we cannot develop a app
+3. but same core java is used in advanced part so the learning core java is very important.
+
+Features of java:
+
+1. java supports oops
+
+2. Dynamic programming -
+we can create the object in the run time
+we can remove the object in the run time(garbage collection). User need to create the object.
+Garbage collection is auto 
+when the object is de-referred the object will go for garbage collection
+
+3. multi threading : multiple users can access the class at the same time which is also called as concurrent programming
+	
+*** Removing the object that is not required anymore is called GARBAGE COLLECTION ***		
+
+4. Robust:
+
+Different types of app can be developed using java like
+
+a. j2ee
+b. spring boot microservice
+c. socket programming
+d. messaging
+
+5. It is a platform independant:
+
+a. once we write code in one OS we run on any OS without any change
+b. This 2 level one level is compilation and interpretation
+c. User write x.java -> compiled to x.class -> interpreted by jvm -> machine code -> executed by OS.
+***java -> compiled to bytecode -> compiled to machine code ->executed***
+d. Since the machine code is not saved to execute the java each time we need jvm to interpret.
+e. The jvm is different for each OS (JVM is platform independant)
+f. write once execute anywhere
+
+
+whenever we want to run the code, JVM should be present in our machine - TRUE
+
+JVM - converts machine level language to 
+
+
+Different versions of JAVA:
+
+1. java 1.6
+2. java 1.7 more on unanimous(class without name)
+3. java 1.8 is base version of all higher version
+ a. Lambda expression
+ b. functional programming
+ c. stream
+ d. multi thread.
+
+4. java 11,13,17,19 - short term support
+5. LTS (long term support) java 1.8,11,13
+
+
+Executing JAVA:
+
+1. We need JAVA kid (JDK) this has got compiler and interpreter
+2. JRE interpreter
+3. java and filename with .java will compile the code
+4. java and filename without .java
+5. Before we start many of the tool we should first install the JDK and environment variable
+6. We can also use Mave build tool which compile and build the java code it will add the dependancy automatically
+a. POM project object module.
+b. it will compile
+c. it will test
+d. it will do code coverage
+e. Modularity
+7. Equivalent for maven is Gradel, ANT (builder tool)
+
+
+Rules for JAVA:(Note if we do not follow the below rules, it is a compilation error).
+
+1. It is case sensitive we need to write the code in lower case
+2. ; as eol
+3. In one file only one public class is allowed.
+4. suppose if we need more public class we need to create in separate files
+5. The public class name should be the file name
+6. JAVA can be executed with or without MAIN method/function.
+7. The signature of main method is 
+	a. public static void Main(String[]arg)
+	b. this is the reason the java is not complete object oriented
+8. String is also immutable class (when we do the changed the new object is create)
+9. Data type is 
+	a. primitive(if any language support primitive they are not complete oops)
+	b. Wrapper class
+primitive
+=========
+Int(4), float(4), char(2), long(8), double(8), Boolean
+Good for complex computation
+External type conversion
+- float x
+Int y = (int) x
+
+
+Wrapper class
+===========
+Integer, Float, character, Long, Double Boolean
+Storage and collection
+Has methods to convert from one data type to another
+Float x
+Integer y
+y.valueof(x)
+
+Note: String is not a data type it is a class.
+
+Class:
+=====
+Is blue print of the entity which contain data and method but not ready to use
+First we need to create a class
+
+Object:
+======
+A memory allocated to the class it is ready to use
+Then the object
+For the same class we can create multiple objects
+
+
+**** MAIN is a overloaded method - TRUE *****
+
+
+
+Example:
+
+Eclipse IDE - project2 - Demo1
+
+important note: 
+
+Inside JAVA class, the code should be written only inside the method.
+
+Outside the method, we can only declare
+
+A static method cannot directly call a non-static method, we can call only after object creation. but a static method can call another static method directly
+
+
+Types of variables in JAVA:
+
+1. class variable
+ 	* A variable declared outside the method with key call static.
+	* These variable can be called without object creation.
+	* This should be called by classname or object name if object present
+	* There will be only one copy of the class variable throughout the application
+	* The class variable will be called by class name
+
+2. Instance variable
+	* A variable declared outside the method without the key static
+	* These variable can be called with object reference or directly if the method is non-static
+	* It is recognised only in one instance or there is a separate copy for every instance
+	* instance variable is called by this pointer
+
+3. Local variable
+	* A variable declared inside a method or block is local. It is recognised only in that block
+	* we should call by only name there is no this or classname for this.
+
+
+Instance method:
+=============
+
+Method without static (non-static)
+Can call both static and instance method
+Can access both class variabe and instance variable
+
+Class Method:
+============
+
+Method with static is class (static)
+can call only class method but not instance
+Can call only static or class variable
+
+	
+Like String: A, wrapper classes are immutable
+That means whenever we do change, we need to assign it back
+
+*************************************************
+
+12/09
+
+String is a datatype - FALSE
+
+s2(0) - sid, fname, dob
+
+
+Constructor 
+•	Constructor is a method that will get executed automatically when object is created.
+•	We can't call constructor explicitly 
+•	Constructor will get executed only once while object is created
+•	Constructor will have same name as class
+•	Constructor is also method/function which will not have return type
+•	Constructor can be overloaded 
+
+
+*****************************************************
+
+13/09
+
+TO(DTO: data transfer object)
+Class
+like json object in react
+To object will hold the data
+To hold the data
+Data members
+It is encapsulated
+The data members will be private
+It contains setter and getter method to access the data
+
+
+BO(Business object)
+Class
+business logics to compute certain things
+To compute certain things
+will take TO as argument
+
+
+
+DAO(data Access object)
+Class
+Connect with database
+Access data from database
+After reading store the data in to 
+
+
+Exception handling:  plsql, react, promise
+
+what is exception?
+
+It is a ambiguity which cannot be performed even though it knows how to perform.
+when there is ambiguity the system will stop in order to avoid that we need to have alternate logic or work or step
+EX: array has 3 element if i want 4 element
+Like user has deposited 1L if we ask for 2 lakh, its not possible
+
+We have alphabets can we convert into integer : No
+database table sdetails to be open if the sdetails is dropped for some reason.
+When there is a ambiguity anywhere in java, js , react we should handle it
+what is handling means design alternative logic or steps
+
+begin
+
+try {
+}
+Catch(exception name)
+
+Try catch finally throw and throws
+Try: will have actual code to execute
+Catch: when ambiguity occurs what to do
+Finally: if the control enter try or catch block if compulsory execute the finally block
+Throw will create a exception
+Throws: takes the control to the calling point
+Multiple try and catch block
+
+while handling exception:
+
+The exception should be specific 
+The exception should be centrally handled
+The validaton should be done by exceptions
+
+
+Java has 
+
+1. System defined exception
+	a. This already defined
+	b. NumberFormatException
+	c. ArrayOutOfBounds
+	d. FileNotFoundException
+	e. In system defined the exception is catches internally
+	f. Throwable is class which is super class for (exception and error)
+	g. Exception class is super class for all exception
+
+2. User defined exception
+	a. when class inherits exception super class its exception
+	b. This is not internally catches we should catch by using throw
+	c. We should create user defined exception for all business validation
+		
+
+whenever there is return statement inside function or method in any language, immediately control will close the function and go back to calling point whatever present below will never get executed.
+
+To overcome this problem, that means even after seeing return statement certain thing has to be executed compulsorily we should use finally block.
+
+Important note:
+=====
+
+The finally block will get executed only if the control enters try or catch block means if the control does not enter either try or catch  
+
+
+*****************************************************
+
+
+14/09
+
+Arraylist:
+Assynchronous
+Use is non thread programs
+Function based on index like array
+when data is huge performance decreases
+
+Vector:
+Synchronous
+Should be use in thread
+Function based on index like array
+when data is huge performance decreases
+
+Linked list:
+
+Function based on memeory allcation and pointer
+even the data is huge the performance decreased
+Using Collections we can convert the linkedlist to synchronous
+
+*****************************************************
+
+
+15/09
+
+FUNCTIONAL PROGRAMING
+
+INTERFACE:
+-----------
+
+It has method that is  not implemented. We need to implement the interface using Class.
+	a) Method or non-concrete method (which does not have Body)
+	b) We cannot create object of interface or abstract method
+	c) The interface has to implement by Class
+	d) Also all the methods need to override.
+	e) It can more than one Method declared, we need to implement all the methods using Class.
+	f) if a interface contains ony one method we can implement using labda expression so no need to have class
+	g) if the interface contains only one method this is also called Functional Programming
+	h) Fucn Prog means writing lambda express for the mentd in the interface
+	i) Java 1.8 also provides some interface we can write the lambdaa expres for them
+		1) Predicate - testing
+		2) Supplier - returning the value
+		3) consumer receiving the value
+	j) inside the interface we shoud not declare the data, if data is declare it beocmes the constants also  it becomes static automatically
+
+
+
+*****************************************************
+
+18/09
+
+Threads:
+
+1. Multiprocessing: if a job is computed by using more than one micro processor, it is called multiprocessing
+a. Example: When salary is processed first 20000 is processed in one computer and another 20000 in different computer 
+b. If computer has got more than 1 processor, it is also called multiprocessing
+c. When we run our real time application front end may be in one server and backend may be in separate server.
+
+2. Multi user: In a software (OS or any other kind of software) at a time if multiple user can login is called multi user
+a. Windows is not multi user, reason is it will switch user
+b. All unix is multi user,
+c. Oracle is a multi user
+
+3. Multi programming: We can run multiple program parallel to another
+a. Example: MS word is multi programming
+b. Typing something and listening to song is also a multi programming
+
+4. Multi Threading: A part of same program where the part of the same program can be executed parallely, which is also called as concurrent programming.
+a. Example: In order to desing a game we should have a multi threading
+b. Multi threading is also called as light-weight code, because the program is already in memory.  No need to allocate resources hence called light weight.
+
+Note: Program is heavy weight where as Thread are light weight. Java supports multi-threading.
+
+In Java multi threading can be created by extending a thread super class or implementing a runnable interface. In java we have to override run method which functions	 like a thread that means when run method start thread begins, when run method close thread closes. Here only run is a thread and other methods are not threads.
+
+Note: when run method calls other methods or any other data, it should be synchronized(the meaning of synchronized is when one thread is calling a data method, other thread will be in the WAIT state.
+
+in Java run method should not be called directly. It should be called using a start method.
+
+Context switching: when one thread will stop and another thread will get executed, its called context switching. (According to basics of electronic or micro processors, micro processor can only execute  only one instruction at a time). In java the context switching is sleep, wait, notify, notifyall, or any IO statement.
+
+Note: When context switiching is not given in thread, it will adopt "round robin technique". Round robin technique - every task will be given few milliseconds. Time is distributed equally
+
+Threads  are unpredictable, os will pick up any thread it wants and run program
+
+==
+
+Check p6: Ticktockgame, player1, player2, demo2
+
+create a tick tock game
+
+Here tick is printed  by one thread and tock is printed by another thread
+
+This has to be repeated for 10 times
+
+Note: it should not print tick-tick or tock-tock
+
+==
+
+check p6: Rummygame, Rummyp1, Rummy p2, Rummy p3, Demo3
+
+Design a game with 3 players where the cards are shuffled and given to each player
+
+Each player should display one-one card at a time for 5 times
+
+==
+
+
+Files: Files package - Demo1, demo2, temp, demo3, demo4, msg.prop
+
+1. Stream: binary files image, sound non ascii / text
+2. Reader/writer class which is specially for text format
+3. How the devices will communicate
+	a. In windows and unox the device are considered as files
+	b. port one device will write in port another will read
+	c. the place where the data is written and read is called as buffered
+4. Java will also support the buffered reader and writer
+5. when we type in a keyboard the data will go to buffered and buffer we need to take
+6. File which helps in file management
+7. The file is associated with path where the file is located
+8. Also the file will have extension
+9. Why do we need files?
+	To store data or information permanently the file will be on secondary storage.
+
+Normally the IO messages or message given in UI or placeholder given in UI we should read it from property files
+
+All error msgs or msg user want should be stored in propery files
+
+A property file is nothing but contains key and values. Based on key we can get value
+
+/home/ubuntu/Desktop/newgit/gitdemoproject/src/files/Demo1.java
+
+
+/home/ubuntu/Desktop/newgit/gitdemoproject/src/files/message.properties
+/home/ubuntu/Desktop/newgit/gitdemoproject/javahandson/project2/src/files
+zerodivide = பூஜ்ஜியத்தால் பிரிக்க இயலவில்லை
+
+*****************************************************
+
+20/09/23
+
+p7 - Demo1, resourcebundling, resources folder msg.propertis (3 folders)
+=======
+
+create a appl divide 2 numbers
+if there is 0 division show the message in tamil
+
+p7 - Demo2, Resb, resources folder - message.en.properties
+
+billing - checknumber, test case - test 1,2,3 
+
+==
+
+MAVEN:
+
+Maven is a build tool which is used to create java project of different architype. Architype say what kind of project we are developing
+
+example: normal java project, J2E project, SpringMVC project, etc..
+
+Here according to architype maven will create project structure that suite project. Maven will also compile
+
+1. mvn compile: to compile a project
+2. mvn clean: to remove previous compilation
+3. mvn test: to run all test case and generate a report.
+4. mvn package: do all above 3 and also create .jar file for deployment
+
+Note: the simple architype for normal java project is quick star. When we create a maven project artifact which is nothing but a package structure. Package structure should always match our project.
+
+Example: com.natwest.billing.*
+
+
+
+==
+
+MYSQL :
+
+
+show databases;
+use emp;
+show tables;
+describe employees;
+select * from employees;
+insert into employee values('1001','Ramesh','Chennai');
+insert into employee values ('1002','Suresh','chennai'),('1003', 'Ajish','delhi');
+select id from employee;
+select * from employee where fname like 'R%';
+create table test (id varchar(6) references employee (id),
+Salary numberic(8),
+dataofsalary date );
+show tables;
+insert into test value ('1001, 40000, '2023/09/01');
+select * from test;
+commit;
+select a.id,a.fname,b.salary from employee a inner join test b on a.id = b.id;
+
+
+
+compile
+clean
+jacoco
+maven
+
+*****************************************************
+
+21/09/23
+=======
+
+Spring Core: 
+
+Spring framework which is good for core concepts, IOC, Dependancy injection, AOP, spring jdbc
+
+Bean, container, xml container, java container wiring, scope
+
+IOC: Inversion of control - Someone who does work for us. This will save the time
+
+only one request created for entire object - single ton
+prototype - for every request, we create a new object each time.
+
+Instead of we create the object each time the object required will be provided to us in singleton manner.
+
+We can have dependancy injection by 2 ways:
+
+1. Setter dependancy injection
+2. Constructor
+
+We request for the object it provides the object reference this is called wiring
+Without request it provides the object automatically is autowire
+
+The object is created and stored in the container
+The container can be of type xml or java
+
+When we create a xml container
+
+1. xml tag
+2. xml DTD
+3. xml scheme
+4. xml attribute
+
+In the container the object are defined with the scope: singleton or protype
+
+Overall process:
+
+1. create the container
+2. Define the bean (java object)
+3. use setter or constructor dependancy injection
+4. Whenever required get object from container
+
+main
+syso
+scanner should minise in spring
+
+
+billing - Demo1,2,3 Compdemo, container2,holiday
+
+main/resource - container 1
+testing - testcase 4
+pom.xml - updated with spring core, spring beans, spring context
+
+
+****
+
+CAPSTRON will include:
+test cases
+devops
+perf testing
+integrated testing
+code coverage
+Taken care of mob compatability
+
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+</beans>
+
+*****************************************************
+
+22/09
+
+Any function with particular 
+
+When u call a method with part argument - aspect oriented programming
+
+joint point
+
+viewing
+cross cut/point cut - some java which will repeat across
+doing the same job to be accepted in all models - loan
+before or after calling a function - Advice
+joint point - 
+
+==
+
+Aspect oriented programming
+
+Aspect is class or method which has to be executed automatically
+
+Crosscut is a class which is in need of aspect. Crosscut can repeat across multiple classes
+
+Note1: Both aspect and crosscut should be in container. Maybe XML container or JAVA container.
+
+Note 2: The join point (arguments) should be wrapper class or classes and we should avoid primitive type.
+
+Note 3: The crosscut classes should have interfaces(it can have multiple interfaces also)
+
+
+resource - aop container
+pom xml - spring aop & aspectweaver
+main - arithmetic, arithmetic implement, validateaspect, validate aspect2, demo4 , Natwest.p2 package
+
+
+************
+
+SDLC - System Development Life Cycle : the different phase we use to build the products
+
+For SDLC we have to select model - water fall model(cannot come back)
+
+Analysis -> Design -> Develop -> Test -> implementation
+
+Analysis \
+
+1. The problem faced by the client and understand the problem (automation)
+2. We cannot carry all the document manager or higher level
+3. Communication between client, management and work level
+4. All the decision to be taken manually
+
+In analysis
+
+1. Questionnaire 40%
+	a. What are the data they are recording
+	b. What is data flow
+	c. What is the information that they want
+	d. What is the output they expect
+		color
+		fontsize
+		data on screen
+		format
+		theme
+2. Discussion with all working environment(spot visit)
+	a. Meet one to one
+	b. See all the manual documentation
+	c. Different recoding
+	d. Different calculation they do
+
+3. Finally we need Document
+	a. Data input
+	b. Data output
+	c. Format
+	d. Condition
+	e. Validation
+	f. Authorisation
+	g. Workload for feasibility
+	
+Design: 25%
+
+	1.Database
+	2.Formula
+	3.Data flow
+	4.flow chart
+	5.Decision Tree
+	6.Algorithm  you write step by step including variable, formula contain loop and out
+
+Development 10%
+
+	1.convert algorithm to code
+
+NFR: Non functional requirement
+	1. code coverage
+SEO
+Higher accessibility
+	2. Test report
+	3. Load report scaling
+	4. responsiveness
+	5. security - OTP
+	6. authorisation
+	7. Pid: personal identification data
+		a. adharcard
+		b. phone number
+		c. salary
+		d. Email id
+		e. 
+
+diff stories
+task
+formula
+accept criteria
+
+
+*****************************************************
+
+25/09
+====
+
+Spring MVC is J2EE edition:
+
+1. Java 2 enterprises edition
+2. Web application (any app used by the end user using internet and browser)
+3. Monolith application
+	a. Comple front end
+	b. All the back end
+	c. Database connected
+	d. There will be one war file web archive file (archive mean code with library ready to work)
+	e. It is very huge
+	f. It need external server to launch
+	g. If anywhere a small problem to be fixed the entire app has to be shut down.
+	h. The biggest drawback is maintenance that is downtime will be more
+4. MVC: Model View Controller architecture
+	a. Model: DAO - which connect to database
+	b. View: (React is you view) view is user interface where user can interact
+		i) Request
+		ii) Response
+		iii) http / it-tcp
+	c. Controller: which interacts between view and model
+		i. View will send the request to controller
+		ii. Controller will call the mode to compute
+		iii. Once compute is done the controller will send to view
+		iv. View will display the response
+
+
+
+step 1: j2ee in the marketplace (go to help and select marketplace)
+and install web application
+
+2: restart the eclipse after installing
+
+3. goto perspective and select Jee (server will appear after selecting jee)
+
+4: create a maven project (spring-mvc-architype)
+after creating project select server and create new server
+here u select download and isntall (apache tomcat 9)
+click next and select
+
+
+
+*****************************************************
+
+26/09
+===
+
+Monolithic app: here everything will be in single deployment 
+
+Compiling the code into war or jar and putting that into server like tomcat is called deployment
+
+Down time will be more
+
+app: it is final app used by end user
+
+service: it is not final it will not be used by end user it will be called by another program (react)
+
+React is a app and not service
+
+Microservice architecture:
+
+2 service:
+
+	a. web service : xml it is very big code to use
+	b. REST service: only url is used to access the endpoint not need to write big code in xml
+
+
+1. Webapp: it was jsp : it ui : -> react
+2. Controller and model: will be separate : service
+3. Will not have one controller
+	a. Will have multiple small controller (microservice)
+	b. REST - Representational state transfer which is accessed by URL (localhost: 9090/app/add2)
+	c. Every controller or microservice will be hosted separately
+	d. No need to have external server it will have internal small server(server free architecture)
+
+	
+To create a microservice
+	a. Nove.js
+	b. c# .net
+	c. Java
+
+To create the micro service using java
+
+	1.Spring boot
+		a. Spring core
+		b. Spring aop
+		c. Database connection
+		d. Spring mvc
+		e. Creating micro service
+	2. Spring boot is also a maven project
+		a. Spring initializer and Intellej
+		b. STS tool - Spring Tool Suite (Eclipse with higher library)
+
+
+
+*****************************************************
+
+
+27/09
+
+select * from userprofile where fname like 'D%'
+
+
+
+create a table to store userID foreign key and job name where employee has worked
+
+one user can have multiple jobs
+
+create database practice;
+use practice;
+create table userprofile(
+userid varchar(40) primary key,
+pass varchar(40) not null,
+fname varchar(40) not null,
+userstatus varchar(12));
+show tables;
+describe UserProfile;
+
+insert into userprofile value('chris@gmail.com', 'welcome@123','Chris','invoked');
+insert into userprofile value('Diana@gmail.com', 'hello@123','Diana','invoked');
+insert into userprofile value('Joe@gmail.com', 'hi@123','Joe','invoked');
+select * from UserProfile;
+drop Table UserProfile;
+commit;
+
+
+*****************************************************
+
+28/09
+
+**************
+
+29/09
+
+Filters or interception Filters
+Note: 
+API gateway is also a eureka client
+
+===========
+
+03/10
+
+Spring eureka Server also called as Cloud Discovery
+Here all the client will get registered so that all the client need not be called by the local host but can be called by the application name so if the port or local host changes , no need to update anything.
+
+Aggregator: which connects with two or more microservice to generate a required report.This is also a client.
+
+
+SMS service: synchronous mean this will be called by another microservice and they are in hand shake process
+
+Mailing service: Async where a queue is created for the request from other microservice and this will process one by one in async manner. 
+
+bill you need to confirm the payment on mail producer sends request to kafka queue
+
+
+eureka: 8761
+client1 : 7071
+client2 : 7072
+api : 6501
+
+We added Feign client to call other microservice synchronoulsy which is an alternative for rest template
+
+We call other microservice using rest template or feign client
+
+To call other microservice using feing client we should create a interface
+
+
+// in every client we have to add the eureka address
+
+
+
+http://localhost:8761/
+http://localhost:7072/c2/m2
+
+http://localhost:7071/c1/client1
+
+http://localhost:7072/c2/m3
+http://localhost:7071/c1/user
+
+http://localhost:7071/c1/job
+
+localhost:6501/client2/c2/
+localhost:6501/client1/c1/
+
+
+
+
+
+create database practice;
+use practice;
+
+create table product(
+productid integer primary key,
+productname varchar(30),
+category varchar(30)
+);
+
+insert into product values(101,'colgate','toothpaste'),('102','closeup','toothpaste'),(103,'lux','soap'),(104,'dove','toothpaste'),(105,'axe','perfume');
+
+select * from 
+
+
+com.mysql
+mysql.connector.
+
+
+
+apigateway
+com.natwest
+class securityconfig
+
+
+"userName":"user1";
+
+
+===
+
+04/10
+
+One front end for each team
+
+In each front end, all member are coding
+
+How do we achieve this?
+
+By process of CI (continuous integration) GIT
+
+	1. A project is created with master branch
+	2. A Dev branch is created from the master branch
+	3. A Dev branch should be permitted to all the team members
+	4. Each team member will create the feature branch of their own and clone the feature branch
+	5. Code everything that is concerned with individual members
+	6. Push the code to feature branch 
+	7. Merge to dev branch ( it is a pull request which has to be approved by team member)
+	8. From Dev branch, run all test cases and application
+
+Note: At start, create a project and push it to the dev branch with all necessary dependencies and minimum coding structure.
+Later on every members will create their own feature branch and work their part of front end.
+Finally merge feature branch to dev branch and delete feature branch. For next coding, recreate a new feature branch.
+
+In the front end, the following has to be taken care:
+
+1. Testing with enzyme and jest
+2. Code coverage
+3. End to end testing
+4. Load testing
+5. Create a webpack
+
+											
+	
+===
+
+05/10
+
+3 levels of documentation
+
+1. Class level
+2. variable level
+3. Method level
+
+/**/ - Normal remark
+/** */ - swagger remark
+
+
+===
+
+06/10
+==
+
+1. Logger object - inside the program
+used to enable the log4j in java class
+resp for taking logging information
+
+
+
+2. Appender object (Interface) - property file
+
+Appender object is responsible for publishing logging information to various prefered destinations such as a file, database, console, unix syslog, etc.
+
+FileAppender
+
+1. Rollingfile appender
+2. Daily rolling file appender
+
+
+3. Layout object - property file
+
+used to format logging infro in diff styles
+
+simple layout : level - logging info
+pattern layout
+html layout
+
+
+==========
+
+09/10
+
+Kafka - Asynchronous
+
+Blocking : synchronous - In blocking, both server and client will be in contact
+
+they will complete only when the work is completed they are blocked so that theyc annot do any other 
+
+Non blocking: Asynchronous
+A person will put the request 
+both server and client wil not be in contact. client put a request and just continue to do other work without waiting for the response the server picks up the request once it is free and process and sends the response
+
+We are using kafka to do communication between 2 micro service asynchronously.
+
+who send is called PRODUCER
+Who receives is called consumer
+
+KAFKA uses 2 things
+
+zookeeper - which is like management
+broker - which is containing the message (topic : if the message has to be sent for multiple consumer)
+que: which can be sent to only one consumer.
+
+A kafka is a server in the cluster this will receive and send the data
+
+Each kafka broker is adentified with an ID (integer)
+
+zuul keeper is 
+consumer and producer are the microserver
+
+
+
+$ bin\windows\zookeeper-server-start.bat \home\ubuntu\Kafka\kafka_2.13-3.5.0/bin/windowsconfig/zookeeper.properties
+
+$ bin/kafka-server-start.sh config/server.properties
+
+
+bin\windows\zookeeper-server-start.bat \home\ubuntu\Kafka\kafka_2.13-3.5.0\config\zookeeper.properties	
+
+
+bin\windows\zookeeper-server-start.bat config\zookeeper.properties	
+bin/zookeeper-server-start
+
+
+what is serialization?
+
+	The data or object inside the RAM memory will be converted into a series of bytes which can be communicated to the network.
+
+De-serialization?
+
+	It will take group of bytes from the communication network and
+converts that back to the objects in memory so that the program can use it.
+
+------------------
+
+
+http://localhost:1111/reactive/
+localhost:1111/emp/reactive
+localhost:1111/reactive/stream
+1111/reactive/
+
+
+
+
+***************
+
+10/10
+====
+
+Docer:
+
+A platform for building, running and shipping applications
+
+Has Class and object
+Image and container
+
+Docker Hub: A repository of multiple images
+private or public
+
+PUSH: copying the image from the computer to HUB
+
+SHIPPING: Go to cloud there you need to pull the image from the hub.
+
+Once the image is pulled you can run the image
+
+Create spring boot app
+butild a simple rest api
+create dockerfile
+build docker image
+run docker image
+demo
+
+One image - docker
+Our image contains another image - 
+
+from openjdk:11
+label amintainer ="javaguides.net"
+
+
+
+get docker
+
+install (go to download folder and click on docker installer)
+wsl --update (update wsl version if required, got to terminal)
+below are docker command that need to be run
+docker --version
+search for all images : docker images
+show all images that is running: docker ps
+
+steps to create docker
+once ms is completed create a jar file using mvn package
+once jar file is created create a docker file as below
+Dockerfile
+
+
+once installed, go and create a microservice
+dev
+spring web
+generate
+
+
+****
+
+p - controller
+c- dockercontroller
+
+@Restcontroller
+@Requestmapping("/docker")
+pub class dockercontroller
+
+@Getmapping("/")
+public string welcome(){
+return "Welcome to Docker Demo Microservice";
+}
+}
+
+*** 
+
+app.prop
+
+server.port = 5555
+
+***
+
+localhost:5555/docker/
+
+
+sudo docker build -t docker-project:latest
+
+sudo docker run -p 5555:5555 docker-project:latest
+
+
+======
+
+12/10
+
+Development approach
+1. botton test
+2. top test
+
+SDLC  R-D-C-T
+
+graphical diagram
+Number of buggs or defects
+period/time
+
+1. developer
+2. test team
+
+successive testing will make the application more reliable
+STLC
+DLC 
+TDD(test driven development) - developer, BDD(behaviour driven development)-developer, ATDD(Acceptance test driven development) - every sprint.
+
+Types of Testing:
+
+	- Functional(developer) and non functional(NFR) (partial by developer and 70% by test team)
+
+	- black box(not aware of code just like interface) - test team and white box (aware of complete code) - developer
+
+	- static testing(developer) and dynamic testing(testing team they run and give different values)
+
+
+Testing levels:
+
+	- unit
+	- Integration - component
+	- system - system integration
+	- acceptance
+
+
+Testing pyramid
+	- Unit testing
+	- API testing
+	- UI testing
+
+
+Automated testing:
+we use specialized tool to test with dynamic values 
+gatlin, sonar, selenium, ene
+
+Manual testing:
+running the app and giving values at runtime
+Junit is manual testing
+
+
+sonarqube
+
+admin - id
+Admin@123 - password
+
+
+mvn clean verify sonar:sonar -Dsonar.login=myAuthenticationToken
+
+mvn clean install
+
+mvn sonar:sonar -Dsonar.login=myAuthenticationToken
+
+mvnsonar:sonar -Dsonar.host.url=https://localhost:9000/sonar -Dsonar.loginmySonarUserKey
+
+
+
+sonarqubetest
+
+app test:
+
+@SprintBoot Test
+class sonarqubetestapplicationtests {
+
+@Test
+public void test1() {
+sonar obj = new Sonar();
+Assertions.assertEquals 
+
+=====
+
+
+13/10
+
+steps of sonarqube:
+
+1. download the sonarqube
+2. unzip
+3. go bin in windows start
+4. server will be started on the port 9000
+5. open local host 9000
+6. got to my account
+7. generate token
+8. copy the token
+9. go to microservice 
+10. add dependancy junit and jacaco
+11. add plugin of jacaco
+12. you need to do mvn package and report will be generated for jacaco or code coverage report
+13. mvn verify sonar: sonar -Dsonar.login=admin-Dsonar.password=Admin@123
+14. mvn verify sonar.sonar -D sonar.password=-Dsonar.login=token copied
+15. go to the 9000 port
+16. then select the project
+17. view the report
+
+
+BDD
+1) behaviour driven development 
+2) this nothing but testing only but 
+with more expiations so that the non 
+technical people can understand what 
+testing we have done
+3) where as in TDD only developer or 
+technical people can understand the 
+code of testing .
+Steps are
+1) use eclipse normal maven project 
+2) we need to add dependency cucumber 
+3) add in market place the cucumber plugin
+4) step 5 and 6 should be under 
+test/resourse folder
+5) we create folder feature 
+6) we create file.feature to enter feature 
+7) next step should be under test 
+/some folder name
+8) here create a test cases that match 
+the feature file(if feature dose not 
+match it is error)
+9) run feature file to execute test case 
+10) create a runner class to generate 
+the report 
+
+
+Selenium testing :
+We have different selenium testing 
+1) webdriver 
+2) what we did in gatlin similarly we 
+write a java code to do e2e (end to end)
+3) open a site 
+4) navigate ever component of the 
+page 
+5) navigate to different page 
+6)  here we follow all the steps of BDD 
+along with that we add webdriver 
+7) Write the code to locate and 
+navigate
+
+===
+
+17/10
+
+Why scaling
+
+Depends on demand
+
+Cloud overview:
+
+enables org to eliminate computing infrastructure that they might not 
+
+advantages
+
+economic benefits
+high availablity
+fault tolerance
+disaster recovery
+
+cost
+
+cap exp - upfront paid
+operational expenditure - maintenance, ac, building
+
+
+
+
+scalability and elasticity
+
+scaling up - vertical scaling
+scaling out and it - horizontal scaling
+
+
+99.999 - the number of 9s increase in SLA, there will be less downtime and more better
+
+every month how may minute max downtime will be there 
+
+
+http://uptime.is/
+
+Arch of infra
+
+region
+
+zone - availabelity zone
+data center - rooms
+column - rooms
+rack - multile servers - power - ac -upgrade level
+server
+
+hugh availality policy - zone - 200 kms
+
+vm - aws - instnace
+
+account - login - UI interface - service interface
+create an instance
+
+hundreds of instances - using UI for that is good?
+program/script/code/
+CLI
+
+APIs AWS services - coding - resources
+
+multiple underlying resources  for a particular response
+
+instance (virtual machine) - select OS 
+
+
+Iaas - infrastructure as a service
+
+Paas - platform as a service
+
+Saas - software as a service
+
+
+
+Q&A
+
+check note for 
+
+according to shared sresp model, whihc clud serv type plays the most resp on the customer
+
+answ = iaas
+
+EC2 - Elastic Cloud Compute
+s3 -
+RDS - relational database service
+
+create data and table and persist it
+
+
+===========
+
+
+1. false
+2. false
+3. Saas
+4. Iaas
+5. rapid elasticity
+6. option b
+7. false
+8. true
+9. Yes
+10. Public cloud
+
+
+correct
+correct
+correct
+wrong
+correct
+correct
+correct
+correct
+correct
+correct
+
+***********
+
+EC2
+
+Di - instance1
+launch instance from dashboard
+
+
+#!/bin/bash
+# Use this for your user data (script from top to bottom)
+# install httpd (Linux 2 version)
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+
+userdata is 
+
+
+******************
+STEPS for Launching instance:
+
+login with id and pw
+select ec2 - dashboard
+launch instance
+give instance name
+select linux
+create a keypair name
+select existing security
+select http option
+or
+create new one with launch wizard max number
+
+advanced
+add the file content in the box
+
+launch instance
+
+successfull
+
+click on the ip
+copy and paste it new browser
+you will get the msg (hello world)
+
+go to instance
+connect
+
+go to the keypair path and open terminal
+
+then give the below
+
+dir
+ssh -i Di-kp3.pem ec2-user@51.20.108.143
+ssh -i .\Di-kp3.pem ec2-user@51.20.108.143
+
+aws will get connected
+
+============
+
+RDS
+
+Mysql - workbench (client)
+Database server client
+My SQL server - DB engine (server)
+client
+
+di-rds-1
+
+DB password
+Welcome!123
+
+endpoint -  di-rds-1.cldysgcprhnh.eu-north-1.rds.amazonaws.com
+
+
+di-rds-1
+mysql workbench - name - Di-database
+server address paste as above end point
+user - admin
+password - Welcome!123
+
+
+IAM
+id - Di-group1-user1
+password - Welcome&123
+
+
+
+====
+
+CDN - content delivery network
+how to use bootstrap - install using NPM - downloaded and part of project node modules. 
+
+
+
+==
+
+10.0.0.0/16
+
+
+============
+
+ASG - Auto scaling group
+
+EC2 dashboard we create the scaling group
+To create, we need a launch template
+check for activity log
+if we terminate any instance
+new one is replaced instantly / automatically
+
+
+ALB
+
+Application Loan Balancer
+
+
+
+
+

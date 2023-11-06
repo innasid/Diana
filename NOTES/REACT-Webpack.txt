@@ -1,0 +1,58 @@
+react supports one way binding
+
+webpack:
+
+webpack is a process of creating a front end bundle which contains all HTML, CSS and JS files which is compiled and bundled with the library. In the webpack, only the components will be added and the rest will be eliminated. Hence, only necessary library will be added and the size of the webpack will be less after compilation
+
+In order to create a webpack, we need compilers and webpage config file.
+
+As discussed earlier, the compiler we use for js to compile is babel compiler
+
+to install babel compiler:
+
+ npm install @babel/core @babel/preset-env @babel/preset-react babel-loader css-loader sass sass-loader webpack webpack-cli
+
+====
+
+create a application as below:
+
+step1: create a folder Hackathonmock 
+
+step2: getinto the folder and give npm init 
+
+step3: inside main folder, create src. under src create js, html and asset
+
+step4: create index.html and index.js which is entry point
+
+Q:
+
+create application to accept userid, userfirstname, useremailid, and dob (use proper input types)
+
+use proper form, form control, and form group , css from bootstrap,
+
+margin between each(label and input box) should be 4
+
+input box should be expanded to full size of screen 
+
+add a button "add" "display". When a add button is clicked, add above data into array or json object 
+
+need to create 3 function for add, display & delete and array should be global which can be accessed in all functions
+
+on display button it should display all object data in ul format with proper css 
+
+add delete icon to every sid on delete respective sid should be deleted and also add user icon for every user.
+
+
+Add item
+
+
+
+
+
+
+
+
+
+
+
+ 

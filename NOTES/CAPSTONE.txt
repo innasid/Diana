@@ -1,0 +1,49 @@
+CAPSTONE PROJECT:
+
+npx json-server --watch database/db.json --port 8089
+npm install -g json-server
+
+npm install @reduxjs/toolkit
+npm install redux
+npm install react-redux
+npm install react-router
+npm install react-router-dom
+npm install axios
+
+npm install @mui/material @mui/icons-material
+npm install @mui/material @emotion/react @emotion/styled
+
+
+dashboard added
+app.js - 17
+
+<a href="#" className="btn btn-primary">Go somewhere</a>
+
+==
+
+
+https://getbootstrap.com/docs/5.3/components/card/#about
+
+https://www.axisbank.com/make-payments/investments-and-donation/loan-instalment-payment
+
+
+********************
+Should do sending login request that should go through API SECURITY
+
+Use JWT token
+and save in store
+
+Along with that if the login is success, call DB and get details like fname, lname, email id.
+
+POST request - create in react
+
+ID & Password - Once it is validated and get JWT token
+
+save it in store
+
+Then call DB and store basic details
+
+*******************
+
+
+

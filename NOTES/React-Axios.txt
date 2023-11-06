@@ -1,0 +1,321 @@
+--------------Inheritance---------
+
+class x {
+
+int a;
+
+public void f1()
+{system.out.print("I am in f1");
+}
+
+}
+class y{
+int b;
+public void f2()
+{system.out.print("I am in f2")}
+}
+
+class y entends x{
+int b;
+public void f2()
+{system.out.print("I am in f2")
+}
+}
+
+y obj = new y()
+obj.a;
+obj.b;
+obj.f1();
+obj.f2();
+--------------------------Composition---
+
+class y{
+
+int b;
+x ob = new x()  ---> ob is reference variable of another object
+
+public void f2()
+{
+system.out.print("I am in f2")
+}
+}
+y obj = new y()
+obj.b
+obj.f2()
+obj.ob.a
+obj.ob.f1()
+
+AXIOS:
+
+is a library which tries to connect to a server end point which may be of GET, POST, PUT, DELETE method.
+
+Here AXIOS is promis method, if execurion happen sucesfully it will go to then part else it will go to 'catch' part.
+In order to work with AXIOS, we need to install AXIOS.
+
+Npm install axios
+
+Attendance
+code quality
+assignments
+git commits
+
+
+the variables declared in one fn cannot be recognised in abother fn
+
+
+
+
+==  
+
+28/08/2023
+=========
+
+Unit testing:
+
+it is testing of the smallest part or unit of the program in java or js we call the unit testing is for method or function that mean for every method or function we need to write test case.
+
+when we consider the react ever component to tested
+a. return or render method
+i. iner html of every tag
+ii. No of tag
+iii. On lick events
+iv. Label
+v. we have to test id
+vi. we have to test css selectors
+vii. in other words every html has to checked
+
+writing the test case and testing the program is also called automated testing
+
+In react html page is invlolved only chai and mocha is not sufficient
+
+we should use enzyme to test html tags also we use JEST for running the test case
+
+we need to install enzyme, enzyme adaptor, jest
+
+we need to configurate package.json
+
+we need a separate test folder
+
+
+ENZYME:
+
+To test html we need brower
+
+Enzyme will create virtual brows environment
+
+Mean it load the page in virtual mode without browser
+
+Helps to check ever tag
+
+It also helps for simulation where the page is loaded, asked to click a button, then test the interaction
+
+There are
+
+1. Functional requirement: what actually a output of the program is called functional test unit testing is mainly concerned with functional requirement.
+
+2. Non functional requirement(NFR): it is very important testing other than the functional requirement.
+	a. Load 
+	b. check code coverage - how much code is tested
+	c. Quality code - best practice of writing the code
+	d. 
+
+
+npm install enzyme --save -dev
+npm install jest --save -dev
+npm install enzyme-adapter-react-18 --save -dev
+npm install react-test-renderer --save -dev
+
+npm install enzyme-adapter-react-18 --include -dev
+===
+
+the data in the state cant be changed - disadvantage of state method
+
+how to call / pass some data from one component to another component
+
+props - passes data from child component to parent component
+from child class - we call a fn of the parent class, hence we 
+
+a comp is not calling the c comp, but c comp is called in app.js
+but c comp should use the counter 
+
+state management tool -  REDUX
+
+takes data from one comp to another comp
+
+transfer n number of data by using STORE - storing all the data / materials
+
+method used to change the data  at component level and the store - ACTION
+
+session management: it helps in managing the session to ensure that the users are authenticating and using at the same time
+=================	
+example:
+
+React server
+
+user 1
+user 2
+user 3
+
+react is a stateless protocol
+
+session means: when one user logins to the application and untill he logoff, the period is called as session.
+
+In one session, the user may navigate between multiple pages. The data in one page(component) should be carried to another page(component) is called session management or state management of one user.
+
+This is what exactly the redux container which is called as a Store will do. when we execute our application, redux will create a separate container for every login and the respective data will be hold in the container.
+
+what if there is no session mgmnt?
+
+user 1 will login, the login data will be lost when we go to the homepage.
+Example: when he selects some data of a product to purchase, the list of product data should be stored. If there is no data is stored the product cannot be billed.
+
+
+State management is done by the container
+
+
+calling the method is called dispatcher - terminology of redux
+
+selector: selects the data from the store
+if we change the data, new data will be stored 
+
+
+redux: a complex state management tool, with a single store as CDS.
+
+reducers: manages the state and returns the newly updated state. A function is a reducer. 
+
+actions: actions have 2 properties type: unique identifier and payload which has data. Actions are source of info for the store as per redux official documentation. 
+
+dispatch: used to send the actions
+
+store: holds the whole state tree of the application. The only way to change the state inside it is to dispatch an action on it.
+
+store is not a class. its an object with few methods on it. To create it, pass the root reducing function to createstore
+
+
+step1:
+add the redux libraries
+
+npm install redux
+npm install react-redux
+
+
+important note:
+
+We should create a store folder compulsory inside src folder.
+
+step2:
+
+Inside the store folder, we should create compulsorily index.js which is a container to hold the data or a state
+Note: container has to be in small letters
+only class has to be in cap letter 
+
+// to create a reducer which will have state and action:
+
+A reducer is created to change the state which contains state and action as a argument
+Note 1: Reducer has to be passed to the createStore so that when there 
+is a change in the state dispatcher will call this particular reducer.
+
+2. while initialising the state we should well plan and add the necessary data into state. Here we use a counter as initial data and in later date we use another json object
+
+
+3. Remember: the state should be accessed by all the component in applications. Hence state should be provided to application at root level so that all component can inherit.
+
+4. We can provide state using component provider. This provider will provide state to entire application and store to be imported and given as props under provider.
+
+If we dont use provider, the component will not be injected to this
+
+
+step 3:
+
+create a component to use counter state, since we are using state here we should use useSelector method to 
+
+
+
+==
+
+when we are working with toolkit we have to create slice which contain intial state, reducer and function in reducer for updation.
+
+Note: when we use slice we will not use type as we did before, we directly create method for updation
+
+Inside the slice we should give name for the initial object and initial values for the actual state
+
+component for login
+component for homepage
+
+
+1. update the redux by adding is login is false
+2. Store 
+Username and password in the redux
+
+
+==
+
+01/09/2023
+
+
+Anything that cannot be changed is called immutable
+Anything that can change is called mutable
+
+i can do the changes mutable
+i cannot do the changes immutable
+
+Data = {
+
+User: state.user
+
+}
+
+in js or react when we talk about immutable it is regarding the variable or collection
+
+collection:
+
+A place where we store some data
+
+example: variable, Array
+
+List a group of aray of data with duplicate elements, list can be accessed using index. 
+
+Map: collection of key + value
+
+Set - it is samething like list but not duplicate
+Map key value pair 
+
+
+
+===
+
+
+Everyone should know the below with example:
+
+1. promise (.then)
+2. closures
+3. callback - calling a function
+4. Timedelay
+5. Async & Await
+6. Http request
+7. Diff between axios and Http request
+8. Arrays & immutable collections
+9. Lamda expressions, map, key, filter
+10. Lifecycle hooks - functional component, class component
+
+
+
+
+add confirm password
+
+
+npx json-server --watch database/db.json --port 8089
+npm install -g json-server
+
+npm install @reduxjs/toolkit
+npm install redux
+npm install react-redux
+npm install react-router
+npm install react-router-dom
+npm install axios
+
+npm install @mui/material @mui/icons-material
+npm install @mui/material @emotion/react @emotion/styled
+
+
+
