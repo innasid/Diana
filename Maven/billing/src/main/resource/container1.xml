@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+<bean id="h1" class="natwest.billing.Holiday" scope="singleton">
+	<property name="holidayname" value="Independence Day"></property>
+	<property name="holidaydate" value="15th August"></property>
+</bean>
+<bean id="h2" class="natwest.billing.Holiday" scope="singleton">
+	<constructor-arg name="holidayname" value="Republic Day"></constructor-arg>
+	<constructor-arg name="holidaydate" value="26th Jan"></constructor-arg>
+</bean>
+
+</beans>
