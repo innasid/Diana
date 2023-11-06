@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: client1
+          uri: lb://client1
+          predicates:
+            - Path=/client1/**
+          filters:
+            - StripPrefix=1
+
+        - id: client2
+          uri: lb://client2
+          predicates:
+            - Path=/client2/**
+          filters:
+            - StripPrefix=1
