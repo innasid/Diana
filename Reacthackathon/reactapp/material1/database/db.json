@@ -1,0 +1,94 @@
+{
+  "userreg": [
+    {
+      "username": "lisa",
+      "email": "lisa@gmail.com",
+      "mobileNumber": "9876543216",
+      "accountNumber": "676767",
+      "password": "77777777",
+      "confirmPassword": "77777777",
+      "address": "iuykhkjhk",
+      "id": "MKXLBOC"
+    },
+    {
+      "username": "Fana",
+      "email": "fana@gmail.com",
+      "mobileNumber": "8989898999",
+      "accountNumber": "878979",
+      "password": "12121212",
+      "confirmPassword": "12121212",
+      "address": "hkjhkhk",
+      "id": "82isW5K"
+    },
+    {
+      "username": "asha",
+      "email": "asha@gmail.com",
+      "mobileNumber": "9876543212",
+      "accountNumber": "6678889",
+      "password": "22222222",
+      "confirmPassword": "22222222",
+      "address": "njfugjhbj",
+      "id": "JQGd4AD"
+    },
+    {
+      "username": "asha",
+      "email": "asha@gmail.com",
+      "mobileNumber": "9876543213",
+      "accountNumber": "6678889",
+      "password": "11111111",
+      "confirmPassword": "11111111",
+      "address": "njfugjhbj",
+      "id": "NUZ68cr"
+    },
+    {
+      "username": "sas",
+      "email": "sas@gmail.com",
+      "mobileNumber": "8889898999",
+      "accountNumber": "65657657",
+      "password": "22222222",
+      "confirmPassword": "22222222",
+      "address": "hjhgjhgjhgj",
+      "id": "wHudxgY"
+    },
+    {
+      "username": "sana",
+      "email": "sana@gmail.com",
+      "mobileNumber": "7868767868",
+      "accountNumber": "768687",
+      "password": "54545454",
+      "confirmPassword": "54545454",
+      "address": "jhgjhgjh",
+      "id": "gSMnB_N"
+    },
+    {
+      "username": "peter",
+      "email": "peter@gmail.com",
+      "mobileNumber": "1234567890",
+      "accountNumber": "77777777",
+      "password": "44444444",
+      "confirmPassword": "44444444",
+      "address": "jkhkhkjhkj",
+      "id": "-Ga0uW-"
+    },
+    {
+      "username": "diana",
+      "email": "diana@gmail.com",
+      "mobileNumber": "9876543245",
+      "accountNumber": "76876687687",
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "address": "abcd",
+      "id": "IoV_xXm"
+    },
+    {
+      "username": "Basil",
+      "email": "basil@gmail.com",
+      "mobileNumber": "8979867979",
+      "accountNumber": "98798789",
+      "password": "55555555",
+      "confirmPassword": "55555555",
+      "address": "khgkgkjgk",
+      "id": "K-6s_PC"
+    }
+  ]
+}
