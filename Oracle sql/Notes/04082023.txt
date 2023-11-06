@@ -1,0 +1,383 @@
+
+04/08/2023
+=========
+
+when a primary key exists, then only the foreign key can exist.
+when there is both primary key and foreign key, we cannot delete primary key first we need to delete the foreign key first.
+
+suppose iff i delete a primary key, the foreign key should be automatically deleted. This is called as cascading effect.
+
+we can add this cascading effect to the primary key. When  primary key deletes the foreign key get deleted.
+
+
+create table temp(
+id varchar2(6) constraint k2 primary key,
+fname varchar2(35) not null
+);
+
+insert into temp values ('s001', 'Scott');
+insert into temp values ('s002', 'Ben');
+insert into temp values ('s003', 'John');
+
+
+using 'on delete cascade' in connecting table
+------------------------------------
+create table temp1(
+id varchar2(6) constraint k3 references temp(id) on delete cascade,
+city varchar2(30)
+);
+
+insert into temp1 values ('s001','Chennai');
+insert into temp1 values ('s002','Coimbatore');
+
+to drop a constraint for adding on delete cascade;
+
+alter table temp1 drop constraint k3;
+
+to add constraint and on delete cascade to delete the primary key directly.
+
+alter table temp1 add constraint k3 foreign key (id) references temp(id) on delete cascade.
+
+SUB-QUERY:
+----------
+
+sub-query means a query inside a query. A sub query can be of 3 types:
+
+1. In-line view
+2. Normal sub-query
+3. Corelated sub-query 
+
+Inline view - A subquery designed from clause instead of using a table name.
+
+Q: Write a query to display student id, name and number of tests he has taken. If test not taken, show absent.
+
+select sid, count(tnumber) tn from marks group by sid;
+
+select a.sid, a.fname, nvl(to_char(b.tn),'Absent') attendance from sdetails a left outer join (select sid, count(tnumber) tn from marks group by sid) b
+on (a.sid=b.sid) where b.tn is null order by sid ;
+
+Normal Sub-query: Here a subquery is written in the 'where' clause. this sub-query has below types:
+1. Single row sub-query
+2. Multi row sub-query
+3. Single column sub-query
+4. Multi column sub-query
+
+If the inner query returns only one row called as a single row sub-query. Here to compare we can use equals, greater than and less than sy,bols.
+
+If the inner query returns more than one row called as a multi row sub-query. Here we cannot use the above aperators. We can only use in operator, greater than all, less than all, greater than any, less than any.
+
+If one of the outer query compares only one column of the inner query is called single column sub query.
+
+If the outer query compares more than one column of the inner query, it is called multi column sub query.
+
+
+Q: Write a query to display all the student names who belongs to chennai:
+
+select sid, fname from sdetails where sid in (select sid from con1 where cityid in (select cityid from city where cityname = 'Chennai'));
+
+
+Q: Write a query to display all the student names who belongs to TamilNadu:
+
+select sid, fname from sdetails where sid in (select sid from con1 where cityid in (select cityid from city where stateid in (select stateid from state where statename ='Tamilnadu')));
+
+Q: Write a query to display the following:
+a)who is first class in test1,
+b)who has not taken the first test,
+C)who has not taken any of the test,
+d)who has failed in the first test display only name and id.
+
+a) select sid, fname from sdetails where sid in (select sid from marks where tnumber = '1' and ((sub1+sub2+sub3)/3) > 60);
+
+b) select sid, fname, 'firstclass' class from sdetails where sid in (select sid from marks where tnumber = '1' and ((sub1+sub2+sub3)/3) > 60); 
+
+c) select sid, fname from sdetails where sid not in (select sid from marks where tnumber in ('1','2'));
+
+d) select sid, fname,'fail     ' class from sdetails where sid in (select sid from marks where tnumber ='1' and ((sub1+sub2+sub3)/3) <35);
+
+
+Corelatedsub-query: 
+
+Inner query will compare with the outer query value.
+its like a nested loop for every one of outer query inner query will be re-repeated.
+
+Example:
+If there is 100 rows in outer query the inner query will repeat  100 times. If its a normal sub-query it will repeat only once.
+
+Hence co-related query will consume huge amount of time and not used in recent days.
+
+Example:
+
+Q: Write a query to display who has passed in the first test and second test.
+
+select a.sid, a.fname from sdetails a where a.sid in (select b.sid from marks b where b.tnumber in ('1','2') and ((sub1+sub2+sub3)/3)>35 and (a.sid=b.sid) );
+
+========
+
+The different data objects are:
+1. table
+2. view
+3. index
+4. store procedures (PL/SQL)
+
+Table: seen already
+view: view is a logical table.
+
+note: when a query is given to the backend like insert, update, delete. this will be in high level language.
+
+The query will be parsed to the query will be checked for permission, it is going to check for syntax which derives the meaning of the query. Finally it converts the query to a low level language (machine level) then the execution will happen.
+
+ (i) There will be huge delay if number of people connects is called scaling. hence the query should be compiled and kept at the backend. then the execution will become faster and there will be no delay.
+
+(ii) This is the reason we can create a view which is a logical table. The query will be compiled and kept. View are also created to restrict the access.
+
+Note: Because of the SQL injection, we should not share it to anyone including the team members of the project with the actual table names. This may lead to SQL injection and damages the project. We should create a view and give the view name.
+
+
+View can be of 2 types:
+
+1. simple view :  on this view we can perform insert, update & delete. It contains only few columns of the table without additional columns like expression, computation, joins, sub-query and so on.
+
+Example: 
+create view student as select * from sdetails;
+
+create view student1 as select sid, fname from sdetails;
+
+create view student2 as select * from sdetails where sid between 's001' and 's009';
+
+create view student3 as select * from sdetails where sid between 's001' and 's009' with check option;
+
+2. complex view : In this view we cannot perform the above operations. It can contain additional columns like computations , expression, joins, subquery and so on.
+
+Example:
+
+create view student4 as select sid, fname,'fail     ' class from sdetails where sid in (select sid from marks where tnumber ='1' and ((sub1+sub2+sub3)/3) <35);
+
+
+3. Index:  Index is a file created to track the records in a binary way. This has to be used so that speed of search increases.
+By default, it automatically creates index of primary key so searching on primary key will be faster.
+Suppose if we want to search on fname, this will take longer time since there is no index on the column. Suppose we are searching data on a particular column, you should create a index on that column, so search on that column becomes faster
+
+Note: Unncessarily we should not create multiple index as it will reduce the speed. 
+
+select * from student where fname = 'Rahul';
+ 
+Command: set timing on
+
+create index n1 on sdetails(fname);
+
+Data dictionary = other name = Meta Data
+
+
+PL / SQL : Procedure language SQL
+
+It is a set of instruction which works on data and give the necessary output.
+
+for ex: we want to calculate a complex structure of income tax or GST, water bill, electricity bill. Here simple quer will not work and we should use PLSQL.
+
+When we want to perform like insert, update and delete we should perform this through the PLSQL. The reason is it can be compiled and kept which increases the speed. Most of the dimension(calculations) should be done with the database level.
+
+PLSQL is a block structed language which has anonymous block and named block. Anonymous block should be created each time where the named block will be compiled and kept with the database and this is called store procedures.
+
+Anonymous block : It is a block structure as follows:
+
+Declare
+Begin
+Exception
+End
+
+Here Declare & Exception is optional. If necessary, we have to use. But Begin & End is compulsory.
+
+We use Declare part to declare the variables.
+
+Begin part - Will have main instructions.
+If there is ambiguity (unclear), also cannot be executed then the control will go to the exception part.
+The good practice of writing PLSQL is 
+- to create necessary store procedures.
+- the store procedures should not have I/O statements.
+- it should have arguments (input) and return type (output)
+- in PLSQL we use "=" for comparison and ":=" for computations.
+- one instruction in one line and there is semicolon (;) should be used.
+
+Before starting PLSQL , use this set server output on;
+ 
+Example:
+
+declare
+a1 number(5):=0;
+a2 varchar(30):='Rahul';
+a3 number(5) default 10;
+a4 number(5) not null :=10;
+a5 number(5) not null default 20;
+a6 a1%type :=10; - type of a1 i.e.., number(5) and this is the recommended way. it will not take not null.
+a7 sdetails.fname%type :='Rahul';
+a8 sdetails%rowtype;
+begin
+dbms_output.put_line(a1);
+end;
+/
+
+declare
+a1 number(5):=0;
+a2 varchar(30):='Rahul';
+a3 number(5) default 10;
+a4 number(5) not null :=10;
+a5 number(5) not null default 20;
+a6 a1%type :=10;
+a7 sdetails.fname%type :='Rahul';
+a8 sdetails%rowtype;
+begin
+dbms_output.put_line(a2);
+end;
+/
+
+
+
+try with a1 , a2, a3 .....in the dbms line and check
+
+declare 
+a1 number(5):=0;
+a2 varchar(30):='raghul';
+a3 number(5) default 10;
+a4 number(5) not null :=10;
+a5 number(5) not null default 20;
+a6 a1%type :=10; 
+a7 sdetails.fname%type :='Raghul';
+a8 sdetails%rowtype;
+begin
+a8.sid :='S001';
+dbms_output.put_line(a8.sid);
+end;
+/
+
+
+declare
+a1 number(5):=0;
+a2 varchar(30):='raghul';
+a3 number(5) default 10;
+a4 number(5) not null :=10;
+a5 number(5) not null default 20;
+a6 a1%type :=10;
+a7 sdetails.fname%type :='Raghul';
+a8 sdetails%rowtype;
+begin
+select * into a8 from student where sid='s002';
+dbms_output.put_line(a8.sid ||' '|| a8.fname ||' '|| a8.lname ||' '|| a8.dob );
+end;
+/
+
+Q: Store any sid display his details and show whether he is passed in the test 1 or not.
+
+declare 
+a1 sdetails%rowtype;
+a2 marks%rowtype;
+a3 marks.sub1%type;
+
+begin
+select * into a1 from student where sid='s002';
+select * into a2 from marks where tnumber='1' and sid='s002';
+a3:=(a2.sub1+a2.sub2+a2.sub3)/3;
+dbms_output.put_line(a1.sid ||' '|| a1.fname ||' '|| a1.lname ||' '|| a1.dob );
+if (a3 <35) then 
+dbms_output.put_line ('fail');
+else
+dbms_output.put_line('pass');
+end if;
+end;
+/
+
+
+Q: Find biggest of 3 numbers (we can store 3 numbers)
+
+
+declare
+a1 number(5) := 10;
+a2 a1%type := 20;
+a3 a1%type := 30;
+begin
+if (a1 > a2 and a1 >a3)
+then 
+dbms_output.put_line(a1 || 'is greatest of 3numbers');
+else if (a2 > a3)
+then 
+dbms_output.put_line(a2 || 'is greatest of 3numbers');
+else 
+dbms_output.put_line(a3 || 'is greatest of 3numbers');
+end if;
+end if;
+end;
+/
+
+
+if - we should have end if for every else if, but for else if only one end if at the end. 
+
+LOOPS:
+
+FOR:
+
+declare
+i number(5) ;
+begin
+for i in 1..10 loop
+dbms_output.put_line(i);
+end loop ;
+end;
+/
+
+reverse order:
+
+declare
+i number(5) ;
+begin
+for i in reverse 1..10 loop
+dbms_output.put_line(i);
+end loop ;
+end;
+/
+
+
+Q: Create a anonymous block to display the date of ramzan and date of deepavali for next 10years (you need to calculate)
+
+declare
+ramzan date := '21-Apr-2023';
+begin
+for i in 1..10 loop
+ramzan := ramzan + (12*29.5);
+dbms_output.put_line(ramzan);
+end loop;
+end;
+/
+
+
+declare
+ramzan date := '23-Mar-2023';
+begin
+for i in 1..10 loop
+ramzan := ramzan + (to_date ('11-Mar-2024','dd-mon-yyyy')- to_date('23-Mar-2023','dd-mon-yyyy'));
+dbms_output.put_line(ramzan);
+end loop;
+end;
+/
+
+********* Deepavali**************
+
+declare
+deepavali date := '24-Oct-2022';
+flag number(2) := 3;
+begin
+for i in 1..10 loop
+if flag = 3 then
+deepavali := deepavali + (13*29.5);
+flag :=1;
+else
+deepavali := deepavali + (12*29.5);
+flag := flag +1;
+end if;
+dbms_output.put_line(deepavali);
+end loop;
+end;
+/
+
+==============**********===================
+
+
+

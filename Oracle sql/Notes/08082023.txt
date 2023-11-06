@@ -1,0 +1,243 @@
+08/08/2023:
+-----------
+
+CURSOR:
+
+cursor is a pointer to the memory,
+ 
+1) It is forward direction
+2) 2 types of cursor:
+	Implicit cursor: the cursor internally available SQL dml operation. This will automatically open and close when the dml operation happens
+	Explicit cursor: created by the user
+	SQL%isOpen it always returns false
+3) Cursor will have attribute to find the status of the cursor
+	a. Not found
+	b. Found
+	c. Rowcount
+	d. isOpen 
+
+
+Q: Create a procedure that deletes rows of a marks table based on the sid and display how many rows are deleted. Also rollback immediately.
+
+create or replace procedure del_marks(sid1 in marks.sid%type) is
+
+begin
+delete from marks where sid = sid1;
+dbms_output.put_line('No of rows deleted is' || sql%rowcount);
+	if SQL%isopen then
+	dbms_output.put_line('Implicit cursor SQL is opened. ');
+	else
+	dbms_output.put_line('Implicit cursor SQL is closed. ');
+	end if;
+
+	if SQL%found then
+	dbms_output.put_line('Implicit cursor SQL is data available for delete.');
+	else
+	dbms_output.put_line('Implicit cursor SQL is data does not available for delete.');
+	end if;
+end del_marks;
+/
+
+
+execute del_marks ('S001');
+
+rollback;
+
+
+TRIGGERS:
+---------
+
+	Triggers are stored procedures like functions and procedures, but triggers will get execute automatically.
+	Based on events and timings, we call this triggers as database triggers because the event will happen on insert, update & delete. Timings are before or after which means the trigger will get executed before inserting or after inserting.
+
+Triggers are of 2 types:
+	1) Statement level trigger
+	2) Row level Trigger
+
+In statement level trigger, the trigger will execute only once even though we insert multiple rows or update multiple rows or delete multiple rows.
+
+In Row level triggers, the trigger will execute for every row is inserted, updated or deleted. when we use row level, we should use a clause called "for each row". when it is a row level trigger, we can use 2 attributes - :NEW and :OLD.
+
+:NEW will store the new data
+:OLD will store the old data
+
+When there is a insert trigger only :NEW is available and :OLD will not be available 
+When there is a update trigger both :NEW and :OLD are available.
+When there is a delete trigger only :OLD is available and :NEW will not be available 
+
+
+Q: Create a trigger to take a backup of rows that is deleted along with the username and times
+
+create table marksbackup as select * from marks where sid is null;
+
+select * from marksbackup;
+
+desc marksbackup;
+
+alter table marksbackup add username varchar2(30);
+
+alter table marksbackup add dt timestamp;
+
+desc marksbackup;
+
+select current_timestamp from dual;
+
+***
+
+create or replace trigger mbackup after delete on marks for each row
+
+begin
+insert into marksbackup values(:OLD.sid, :OLD.tnumber, :OLD.sub1, :OLD.sub2, :OLD.sub3, user, current_timestamp );
+end mbackup;
+/
+
+***
+
+modify the above trigger for update and delete both if deleting shows the status deleted, if update shows the status updated.
+
+create or replace trigger mbackup after delete or update on marks for each row
+
+begin
+if deleting then
+insert into marksbackup values(:OLD.sid, :OLD.tnumber, :OLD.sub1, :OLD.sub2, :OLD.sub3, user, current_timestamp, 'delete' );
+else
+insert into marksbackup values(:OLD.sid, :OLD.tnumber, :OLD.sub1, :OLD.sub2, :OLD.sub3, user, current_timestamp, 'Update' );
+end if;
+end mbackup;
+/
+
+select * from marks;
+
+select * from marksbackup;
+
+create table sid1(lvalue number(3))
+
+==
+
+Q: create a trigger to calculate and add sid to the sdetails table automatically.
+
+create or replace trigger tsid1 before insert on sdetails for each row
+
+declare
+r1 number(4) default 0;
+
+begin
+select lvalue into r1 from sid1;
+update sid1 set lvalue = (r1+1);
+:NEW.sid:='S' || lpad((r1+1), 3,'0');
+
+exception
+when others then
+dbms_output.put_line('data not found');
+end tsid1;
+/
+
+insert into sdetails values(null, 'Deepak', 'Chahar', '11-feb-1986');
+
+==
+
+EXCEPTIONS:
+
+A computer is a device which executes unambiguous intructions. Ambiguity is a thing where it knows the procedure but it cannot execute because of the invalid or incorrect data.
+
+For those ambiguity instructions, we will use exceptions to run the process without any interruption. we will give alternate instructions to return.
+
+
+declare
+a number(5) := 10;
+b a%type := 0;
+c a%type ;
+
+begin
+dbms_output.put_line('program started');
+c := a/b;
+dbms_output.put_line(c);
+dbms_output.put_line('program ended');
+
+exception
+when zero_divide then
+dbms_output.put_line('cannot divisible by zero. please check the value');
+dbms_output.put_line('program ended');
+
+when others then
+dbms_output.put_line('other error occured');
+dbms_output.put_line('program ended');
+
+end;
+/
+
+--------
+
+declare
+r1 sdetails%rowtype;
+
+begin
+select * into r1 from sdetails where sid ='S019';
+dbms_output.put_line('Record Found ' || r1.fname);
+
+exception
+when no_data_found then
+dbms_output.put_line('Given ID is invalid in database');
+end;
+/
+
+
+------------------
+
+Inbuilt functions:
+------------------
+
+Oracle database provides some inbuilt functions which we can use directly. But we can also create our own functions which is called as user defined functions. Example: cal_tax - user defined || upper of, initcap - Inbuilt
+
+	Inbuilt function are of types:
+		1. Single row functions : will execute for every row. Ex: INITCAP, Upper of
+		2. Multi row functions : works on group of row. Ex: count(*), max, Min.
+
+
+Single row functions are of different types:
+
+	1. Text single row functions (works on text data) - Initcap, upper of, lpad, trim, length
+	2. Number single row functions (works on digits) - round, trunc, mod(%), sqrt.
+	3. Conversion single row functions (which converts one datatype to another datatype) - to_char, to_number, to_date.
+	4. General or conditional single row functions (which works on conditions) - nvl, case, when, nvl2
+	5. date single row functions (works on date) - sysdate, timestamp, round, trunc
+
+select mod(10,3) from dual;
+
+select round(15.9999, 0) from dual;
+
+select trunc (15.9999, 0) from dual;
+
+select sqrt(4) from dual;
+
+select to_char(15532, '99,999.00') from dual;
+
+select to_number('15,532.00', '99,999.00') from dual;
+
+select to_char(sysdate, 'dd-mon') from dual;
+
+select to_date('01-01-1999','dd-mm-yyyy') from dual;
+
+select nvl(null,'0') from dual;
+
+select nvl('100','0') from dual;
+
+select nvl2('100','s', 'no') from dual;
+
+select nvl2(null,'s', 'no') from dual;
+
+select sysdate from dual;
+
+select round(sysdate) from dual;
+
+select trunc(sysdate) from dual;
+ 
+
+If we give Not null - it will display second value
+If we give Null - it will display third value
+
+*****
+alter table marksbackup add user varchar2(10);
+alter table marksbackup add dt timestamp;
+alter table marksbackup add status varchar2(10); 
+****

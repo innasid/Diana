@@ -1,0 +1,25 @@
+pl sql practice case:
+
+subtraction of 2 numbers:
+
+declare
+n1 number(6);
+n2 number(6);
+Begin
+n1:=56;
+n2:=14;
+dbms_output.put_line('The subtraction of 2 numbers is '||(n1-n2));
+end;
+/
+
+multiplication of 2 number:
+
+declare
+n1 number(5);
+n2 number(5);
+Begin
+n1:=30;
+n2:=2;
+dbms_output.put_line('The multiplication of 2 numbers is '||n1*n2));
+end;
+/

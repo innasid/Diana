@@ -1,0 +1,108 @@
+create table edetails(
+empid number(6) primary key,
+fullname varchar(20),
+managerid number(6),
+dateofjoining date,
+city varchar(15)
+);
+
+insert into edetails values (121,'John Snow',321,'31-Jan-2019','Toronto');
+insert into edetails values (321,'Walter White',986,'30-Jan-2020','California');
+insert into edetails values (421,'Kuldeep Rana',876,'27-Nov-2021','New Delhi');
+insert into edetails values (522,'Suresh Raina',599,'27-Mar-2020','Tamilnadu');
+insert into edetails values (788,'Ambati Rayudu',700,'27-May-2021','Andhra');
+ 
+create table esalary(
+emprefid number(6),
+project char(5),
+salary number(10),
+variable number(10),
+foreign key (emprefid)
+references edetails (empid)
+on delete cascade);
+
+insert into esalary values (121,'P1',8000,500);
+insert into esalary values (321,'P2',10000,1000);
+insert into esalary values (421,'P1',12000,0);
+
+1st question : 
+select * from edetails where not exists (select 1 from esalary where empid = emprefid);
+
+2nd question :
+select edetails.empid, edetails.fullname from edetails left join esalary on edetails.empid = esalary.emprefid where esalary.emprefid is null;
+
+3rd question :
+select * from edetails where extract(year from dateofjoining) = 2020;
+
+4th question :
+select * from edetails inner join esalary on empid = emprefid;
+
+5th question :
+select project, count(empid) as employee_count from esalary inner join edetails on emprefid = empid group by project;
+
+6th question :
+select edetails.fullname, esalary.salary from edetails left join esalary on edetails.empid = esalary.emprefid;
+
+7th question ;
+select e1.* from edetails e1 inner join edetails e2 on e1.empid = e2.managerid;
+
+8th question :
+select empid, fullname, managerid, dateofjoining, city from edetails group by empid, fullname, managerid, dateofjoining, city having count(*) > 1;
+
+9th question :
+select empid, fullname, managerid, dateofjoining, city from (select empid, fullname, managerid, dateofjoining, city, rownum as row_num from edetails) where mod(row_num, 2) = 1;
+
+10th question :
+select salary from (select salary, row_number() over (order by salary desc) as row_num from esalary) ranked_salaries where row_num = 3;
+
+11th question :
+select empid, fullname from edetails where managerid = 986;
+
+12th question :
+select distinct project from esalary;
+
+13th question :
+select count(*) from esalary where project = 'P1';
+
+14th question ;
+select max(salary), min(salary), avg(salary) from esalary;
+
+15th question :
+select emprefid from esalary where salary >= 9000 and salary <= 15000;
+
+16th question :
+select empid, fullname from edetails where city = 'Toronto' and managerid = 321;
+
+17th question ;
+select empid, fullname from edetails where city = 'California' or managerid = 321;
+
+18th question :
+select ed.empid, ed.fullname from edetails ed inner join esalary es on ed.empid = es.emprefid where es.project <> 'P1';
+
+19th question :
+select emprefid, project, salary + variable as total_salary from esalary;
+
+20th question :
+
+select * from edetails where fullname like '__hn%';
+
+21st question :
+
+select empid FROM edetails union select emprefid from esalary;
+
+22nd question :
+
+select empid from edetails intersect select emprefid from esalary;
+
+23rd question :
+
+select empid from edetails left join esalary on empid = emprefid where emprefid is null;
+
+24th question :
+
+select empid from edetails inner join esalary on empid = emprefid;
+
+25th question :
+
+select empid from edetails left join esalary on empid = emprefid where emprefid is null;
+

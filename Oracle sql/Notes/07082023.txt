@@ -1,0 +1,440 @@
+07/08/2023:
+==========
+
+Cursor:
+
+Select into means select only one row and stores in a variable. Drawback here is it cannot select multiple rows. 
+
+In select into class 'where' class is compulsory.
+
+If we want to select multiple rows into a PLSQL, there are 2 options:
+
+1) Cursors
+2) Arrays & Bulk collect statements
+
+What is cursor?
+
+A cursor is a pointer to the memory, where the rows are selected and stored. the cursor will navigate in the forward direction.
+
+Cursor has got the following operations:
+
+a) Declaring the cursor
+b) opening the cursor
+c) Reading the date from the cursor using the loop
+d) Closing the cursor
+e) We can also perform above operation using for loop. When we use for loop, the loop automatically opens, reads and close the cursor. The for loop will minimise ur statements.
+f) There are parameterized cursor (passing a parameter using cursors). i.e arguments. The reason we have parameterized cursor is to use the same cursor for different conditions.
+
+
+Declare
+Cursor c1 is select * from sdetails;
+r1 c1%rowtype;
+begin 
+open c1;
+while true loop
+fetch c1 into r1;
+exit when c1%notfound;
+dbms_output.put_line(r1.sid || ' ' || r1.fname); 
+end loop;
+close c1;
+end;
+/
+
+========
+
+repeat the above using for loop:
+
+declare
+cursor c1 is select * from sdetails;
+begin
+for r1 in c1 loop
+dbms_output.put_line(r1.sid || ' ' || r1.fname);
+end loop;
+end ;
+/
+
+============
+
+
+Q: create a cursor to display all the students who were born in the given month
+
+note: in PLSQL, the argument / parameter can be of 3 types. 
+
+1. In parameter which is read-only (we cannot assign any values to the parameter. If we try to assign the value, it will give compilation error)
+2. Out parameter which is reference type
+3. In-Out parameter which can read and refer
+
+
+declare
+cursor c1(mo in varchar2) is select * from sdetails where to_char(dob, 'mon')=mo;
+begin
+for r1 in c1('jun') loop 
+dbms_output.put_line(r1.sid || ' ' || r1.fname);
+end loop;
+end;
+/
+
+
+for loop
+=======
+
+declare
+cursor c1(mo in varchar2) is select * from sdetails where to_char(dob, 'mon')=mo;
+r1 c1%rowtype;
+begin
+open c1('apr');
+while true loop
+fetch c1 into r1
+exit when c1%notfound;
+dbms_output.put_line(r1.sid ||' ' || r1.fname);
+end loop;
+close c1;
+end;
+/
+
+
+=====
+
+Q: create a cursor to display sid, fname, lname, total marks of the students for a given test number.If the student has not taken the test, display absent.
+
+declare
+cursor c1(tno in number) is select a.sid, a.fname, a.lname, nvl(to_char((b.sub1+b.sub2+b.sub3),'9999'), 'Absent') tot from sdetails a left outer join marks b on (a.sid=b.sid and b.tnumber=tno);
+
+begin
+for r1 in c1(1) loop
+dbms_output.put_line(r1.sid ||' '|| r1.fname ||' '|| r1.lname ||' '||r1.tot);
+end loop;
+end;
+/
+
+=========
+
+Q: create a cursor to display the student of any given state along with the city name and state name
+
+declare
+cursor c1(stnm in varchar2) is select a.sid, a.fname, b.cityname, c.statename from sdetails a inner join con1 d on ( a.sid = d.sid) inner join city b on (d.cityid = b.cityid) inner join state c on (b.stateid = c.stateid and c.statename=stnm);
+
+begin
+for r1 in c1('Tamilnadu') loop
+dbms_output.put_line(r1.sid || ' '||r1.fname||' '||' '||r1.statename);
+end loop;
+end;
+/
+
+=========
+ 
+
+For update cursors:
+
+suppose if want to do any DML operations (Data Manipulation language) like insert,update,delete on a table using cursors we have to use for update cursors which will lock the table.
+
+Q: Convert all lname to capital letters using cursors.
+
+declare
+cursor c1 is select * from sdetails for update;
+r1 c1%rowtype;
+begin
+open c1;
+while true loop
+fetch c1 into r1;
+exit when c1%notfound;
+dbms_output.put_line('updation of ' || r1.sid);
+update sdetails set lname= initcap(lname) where current of c1;
+end loop;
+close c1;
+end;
+/
+
+
+============
+
+Store procedures:
+
+Store procedures are nothing but the same PLSQL blocks with name.
+This will be stored at the backend server and we can call anytime.
+There are 3 types of store procedures :
+
+a) Functions
+b) Procedures
+c) Triggers
+
+
+FUNCTIONS:
+---------
+
+Functions are PLSQL block with name which can receive zero or more arguments and do some processing that is required and finally it can return only one value(it cannot return multiple values). 
+
+Normally we use functions to compute calculations. These functions can be called in the select statement. When there is a complex equations, it is better to create functions rather than writting the equations in the select statement.
+
+According to the customer requirements and the formula given by them, we can create the respective functions.
+
+Note: Functions can have only In parameters. It cannot have out or in-out parameters.
+
+Q: create a functions to compute total, average and result of the marks:
+
+create or replace function cal_total (a1 in number, a2 in number, a3 in number) return number is a4 number(6);
+
+begin
+a4:= a1 + a2 + a3;
+return a4;
+end cal_total;
+/
+
+select * from marks;
+
+select sid, tnumber, sub1, sub2, sub3, cal_total(sub1, sub2, sub3) tot from marks;
+
+
+Q: create or replace function cal_avg (a1 in number, a2 in number, a3 in number) return number is 
+a4 number(6);
+
+begin
+ a4 := cal_total(a1,a2,a3)/3;
+return a4;
+end cal_avg;
+/
+
+select sid, tnumber, sub1, sub2, sub3, cal_total(sub1, sub2, sub3) tot, cal_avg(sub1, sub2, sub3) avg from marks;
+
+
+==
+
+
+note: to calculate the result please follow the below rules.
+
+a) if student failed in any one of the subject, he should be treated as failed.
+b) if the marks is between 35 to 49, return pass
+c) if the marks is between 50 to 59, return second class
+d) if the marks is between 60 to 84, return first class
+e) if the marks is above 84, return distinction.
+f) if sub1 or sub2 or sub3 is null return absent.
+
+
+
+Q: 
+
+create or replace function cal_result(a1 in number, a2 in number, a3 in number) return varchar2 is a4 varchar(13);
+
+begin
+if a1 is null or a2 is null or a3 is null then
+a4 := ' Absent';
+elsif a1 < 35 or a2 <35 or a3 < 35 then
+a4 := 'fail';
+elsif cal_avg(a1,a2,a3) between 35 and 49 then
+a4 := 'Pass';
+elsif cal_avg(a1,a2,a3) between 50 and 59 then
+a4 := 'Second class';
+elsif cal_avg(a1,a2,a3) between 60 and 84 then
+a4 := 'First class';
+else 
+a4 := 'Distinction';
+end if;
+return a4;
+end cal_result;
+/
+
+
+select sid, tnumber, sub1, sub2, sub3, rpad(cal_result(sub1,sub2,sub3), 15,' ') result from marks;
+
+
+select a.sid, a.fname, lpad(cal_result(b.sub1, b.sub2, b.sub3), 15,' ') result from sdetails a
+left outer join marks b on ( a.sid=b.sid and b.tnumber=1);
+
+
+select a.sid, a.fname, lpad(cal_result(b.sub1, b.sub2, b.sub3), 15,' ') result from sdetails a
+left outer join marks b on ( a.sid=b.sid );
+
+
+--------------
+
+Q; create a function to compute income tax for a employee ( annual income is passed to the function)
+
+rules are :-
+		below 7 lakhs no incometax
+		above 7lakhs to 10 lakhs - upto 3 lakhs no income tax, greater than 3 lakhs to 5lakhs 5%, 5lakhs to 7lakhs 7% and 7lakhs to 10 lakhs 10%
+		10 lakhs to 12lakhs 12.5%
+		12 lakhs to 15 lakhs 15%
+		15lakhs to 20lakhs 20%
+		above 20lakhs 30%
+
+
+10000 + 14000 + 30000 +25000+ 45000 + 100000
+
+create or replace function cal_it(annual_income in number) return number is 
+tax number(10);
+begin
+if annual_income < 700000 then
+tax := 0;
+elsif annual_income between 700000 and 1000000 then
+tax := 24000 + (annual_income - 700000) * 0.1;
+elsif annual_income between 1000001 and 1200000 then
+tax := 54000 + (annual_income - 1000000) * 0.125;
+elsif annual_income between 1200001 and 1500000 then
+tax := 79000 + (annual_income - 1200000) * 0.15;
+elsif annual_income between 1500001 and 2000000 then
+tax := 124000 + (annual_income - 1500000) * 0.20;
+else
+tax := 224000+ (annual_income - 2000000) * 0.30;
+end if;
+return tax;
+end cal_it;
+/
+
+select cal_it(amt) from dual;
+-----------------------------------------
+ 
+PROCEDURES:
+
+procedure is a task done independantly which should not be called in a select statement. Procedures are used normally for insertions, updation, extract some informations and deletion.
+
+Procedures can have all the type of arguments :
+
+	In, out, In-Out mode of arguments
+
+Compare to functions, procedures will execute faster and they are completely prepared for execution. Therefore insread of putting main logic in the function we can put main logics in the procedure and call this procedures from the function. Procedures are much recommended.
+
+Procedures cannot return any values.
+
+----------------------------------------
+
+Create procedure to add two numbers:
+
+Create or replace procedure padd(a in number, b in number, c out number) is
+begin
+c:=a+b;
+end padd;
+/
+
+
+Out or reference parameter:
+--------------------------
+
+declare
+x number(5);
+begin
+padd(20,30,x);
+dbms_output.put_line('sum is = ' || x);
+end;
+/
+
+
+Reference parameter in shell: when we execute padd, execure will create an anonymous block
+
+SQL> variable n number;
+SQL> execute padd(40,50,:n);
+
+PL/SQL procedure successfully completed.
+
+SQL> print n;
+
+	N
+----------
+	90
+
+without anonymous block:
+-----------------------
+
+
+begin
+padd(100,50,:n);
+end;
+/
+
+print n;
+
+---------------------
+
+Q: create a procedure to calculate income tax and call this procedure from the function what we created earlier 	
+
+create or replace procedure pcal_it(annual_income in number, tax out number) is
+
+begin
+if annual_income < 700000 then
+tax := 0;
+elsif annual_income between 700000 and 1000000 then
+tax := 24000 + (annual_income - 700000) * 0.1;
+elsif annual_income between 1000001 and 1200000 then
+tax := 54000 + (annual_income - 1000000) * 0.125;
+elsif annual_income between 1200001 and 1500000 then
+tax := 79000 + (annual_income - 1200000) * 0.15;
+elsif annual_income between 1500001 and 2000000 then
+tax := 124000 + (annual_income - 1500000) * 0.20;
+else
+tax := 224000+ (annual_income - 2000000) * 0.30;
+end if;
+end pcal_it;
+/
+
+select cal_it(amt) from dual;
+
+-------------------------------------------
+
+
+create or replace function cal_it(annual_income in number) return number is tax number(10);
+
+begin
+pcal_it(annual_income, tax);
+return tax;
+end cal_it;
+/
+
+
+select cal_it(amt) from dual;
+----------------------------
+
+
+create a procedure to insert, update and delete a data from sdetails table
+
+note: whichever the column given for update, only those column should be updated other colums should be retained as it is. pdml - procedure data manipulation language
+
+
+create or replace procedure pdmlsdetails (sid1 in sdetails.sid%type default null, 
+fname1 in sdetails.fname%type default null, lname1 in sdetails.lname%type default null, 
+dob1 in sdetails.dob%type default  null, status in number ) is
+r1 sdetails%rowtype;
+
+begin
+if status = 1 then
+	insert into sdetails values (sid1, fname1, lname1, dob1);
+elsif status = 2 then
+	if sid1 is null then	
+	dbms_output.put_line('record cannot be deleted since id is null');
+	else
+	select * into r1 from sdetails where (sid =sid1);	
+	delete from sdetails where (sid = sid1);
+	end if;
+elsif status = 3 then
+	if sid1 is null then	
+	dbms_output.put_line('record cannot be updated since id is null');
+	else
+	select * into r1 from sdetails where (sid =sid1);
+		if fname1 is not null then
+		r1.fname := fname1 ;
+		end if;
+
+		if lname1 is not null then
+		r1.lname := lname1;
+		end if;
+
+		if dob1 is not null then
+		r1.dob := dob1;
+		end if;
+	update sdetails set fname = r1.fname, lname = r1.lname, dob = r1.dob where sid = r1.sid;
+	end if;
+end if ;
+exception
+when others then
+dbms_output.put_line('Sid does not exist');
+end pdmlsdetails;
+/
+
+execute pdmlsdetails ('S014', 'Ravindra', 'Jadeja', '22-mar-1971', 1);
+
+execute pdmlsdetails ('S015', dob1 => '22-mar-1975', status => 3);
+
+execute pdmlsdetails ('S016', status => 2);
+
+execute pdmlsdetails ( status => 2);
+
+
+==================

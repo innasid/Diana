@@ -1,0 +1,74 @@
+Table created for employees :
+create table employees(
+eid varchar(18) primary key,
+ename varchar(20),
+job varchar(20),
+Annualsalary number(15),
+department_no number(3),
+department_name varchar(15),
+jobid number(5),
+dep_id varchar(10)
+);
+
+select * from employees;
+
+1st question :
+insert into employees values('e01','Arun','Analyst',500000,10,'Finance',2,'Fin');
+insert into employees values('e02','Arjun','Analyst',400000,05,'Sales',2,'Sal');
+insert into employees values('e03','Nithin','Team leader',1000000,08,'Marketing',4,'Mar');
+insert into employees values('e04','Ashwanth','Manager',1500000,02,'Hr',5,'H');
+insert into employees values('e05','Jaya','Senior Analyst',800000,10,'Finance',3,'Fin');
+insert into employees values('e06','Somu','Analyst',500000,07,'Operations',2,'Ope');
+insert into employees values('e07','Maha','Analyst',300000,08,'Marketing',2,'Mar');
+insert into employees values('e08','Elakkiya','Senior Analyst',800000,07,'Operations',3,'Ope');
+insert into employees values('e09','Nivetha','Senior Analyst',600000,06,'Purchase',3,'Pur');
+insert into employees values('e10','Preethi','Senior Analyst',700000,05,'Sales',3,'Sal');
+insert into employees values('e11','Babu','Manager',1300000,05,'Sales',5,'Sal');
+insert into employees values('e12','Hari','Team leader',1100000,07,'Operations',4,'Ope');
+insert into employees values('e13','Kani','Manager',1200000,06,'Purchase',5,'Pur');
+insert into employees values('e14','Agni','Team leader',900000,02,'Hr',4,'H');
+insert into employees values('e15','Sandy','Manager',1400000,05,'Marketing',5,'Mar');
+
+2nd question :
+select ename, job, Annualsalary from employees;
+
+3rd question :
+select count (*) from employees;
+
+4th question :
+select sum(Annualsalary) from employees;
+
+5th question :
+select MIN(Annualsalary) as MinAnnualsalary from employees;
+select MAX(Annualsalary) as MaxAnnualsalary FROM employees;
+
+6th question :
+select ename from employees order by Annualsalary asc;
+
+7th question :
+select ename from employees order by Annualsalary desc;
+
+8th question :
+select ename from employees order by ename asc;
+
+9th question :
+select eid, ename, department_no, annualsalary from employees order by ename asc, department_no asc, annualsalary desc;
+
+10th question :
+select ename, Annualsalary from employees order by Annualsalary desc;
+
+11th question :
+select dep_id, count(*) as total_employees from employees group by dep_id;
+
+12th:
+select job, count(*) as total_employees from employees group by job;
+
+13th:
+select department_no, sum(Annualsalary) from employees group by department_no;
+
+14th:
+select department_no, max(Annualsalary) from employees group by department_no;  - doubt
+
+15th:
+select job, sum(Annualsalary) from employees group by job;
+

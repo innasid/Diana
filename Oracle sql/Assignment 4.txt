@@ -1,0 +1,308 @@
+1st question :
+=============
+
+declare
+  incentive  number(8,2);
+begin
+  select salary * 0.12 INTO incentive
+  from employees
+  where employee_id = 110;
+dbms_output.put_line('Incentive  = ' || to_char(incentive));
+end;
+/
+
+
+********************************************************************
+
+
+2nd question :
+=============
+
+declare
+    v_unquoted_identifier number;
+    "v_quoted_identifier" number;
+begin
+    v_unquoted_identifier := 10;
+   "v_unquoted_identifier" := 20;
+    v_quoted_identifier := 30;
+dbms_output.put_line('Unquoted Identifier Value: ' || v_unquoted_identifier);
+dbms_output.put_line('Quoted Identifier Value: ' || "v_quoted_identifier");
+end;
+/
+
+
+****************************************************************************
+
+
+3rd question :
+===========
+
+declare
+    select_ number;
+begin
+    select_ := 42;
+    dbms_output.put_line('Value of select_: ' || select_);
+exception
+    when others then
+        dbms_output.put_line('Error: ' || sqlerrm);
+end;
+/
+
+*******************************************************************************
+
+
+4th question :
+=============
+
+declare
+    v_rows_affected number;
+begin
+    delete from your_table where some_condition;
+    v_rows_affected := SQL%rowcount;
+    dbms_output.put_line('number of rows affected: ' || v_rows_affected);
+exception
+    when others then
+        dbms_output.put_line('error: ' || sqlerrm);
+end;
+/
+
+
+***************************************************************************
+
+
+5th question :
+============
+
+declare
+    v_unquoted_identifier number;
+    "v_quoted_identifier" number;
+begin
+    -- Valid reference to an unquoted identifier (case-insensitive)
+    v_unquoted_identifier := 10;
+
+    -- Valid reference to a quoted identifier (case-sensitive)
+    "v_quoted_identifier" := 20;
+
+    -- Invalid reference to a quoted identifier without quotes (case-insensitive)
+    v_quoted_identifier := 30;
+    
+    dbms_output.put_line('Unquoted Identifier Value: ' || v_unquoted_identifier);
+    dbms_output.put_line('Quoted Identifier Value: ' || "v_quoted_identifier");
+exception
+        when others then
+            dbms_output.put_line('Error: ' || sqlerrm);
+end;
+/
+
+
+*********************************************************************
+
+
+6th question :
+============
+
+Declare
+    v_unquoted_identifier number;
+    "v_quoted_identifier" number;
+begin
+    -- Valid reference to an unquoted identifier (case-insensitive)
+    v_unquoted_identifier := 10;
+v_col1 source_table.column1%TYPE;
+    v_col2 source_table.column2%type;
+    v_col3 source_table.column3%type;
+begin
+    open source_cursor;
+    
+    loop
+        fetch source_cursor INTO v_col1, v_col2, v_col3;
+        exit when source_cursor%notfound;
+   insert into target_table1 (column1, column2)
+        values (v_col1, v_col2);
+        insert into target_table2 (column3)
+        values (v_col3);
+    end loop;
+    
+    close source_cursor;
+    commit;
+    
+    dbms_output.put_line('Data inserted successfully.');
+exception
+    when others then
+        dbms_output.put_line('Error: ' || sqlerrm);
+        rollback;
+end;
+
+***************************************************************************
+
+
+7.
+
+Write a program in PL/SQL to create a cursor display the name and salary of each employee in the EMPLOYEES table whose salary is less than that specified by a passed-in parameter value
+
+
+Declare
+    v_max_salary employees.salary%type := 5000;
+    
+    cursor employee_cursor is
+        select employee_name, salary
+        from employees
+        where salary < v_max_salary;
+    
+    v_employee_name employees.employee_name%type;
+    v_salary employees.salary%type;
+begin
+    
+    open employee_cursor;
+    DBMS_output.put_line('Employees with Salary Less Than ' || v_max_salary);
+    DBMS_output.put_line('-----------------------------------');
+    Loop
+        fetch employee_cursor into v_employee_name, v_salary;
+        Exit when employee_cursor%notfound;
+        
+        DBMS_output.put_line('Employee Name: ' || v_employee_name);
+        DBMS_output.put_line('Salary: ' || v_salary);
+        DBMS_output.put_line('-----------------------------------');
+    end loop;
+
+    
+    close employee_cursor;
+exception
+    when no_data_found then
+        DBMS_output.put_line('No employees found with salary less than ' || v_max_salary);
+    WHEN OTHERS THEN
+        DBMS_output.put_line('An error occurred: ' || SQLERRM);
+end;
+/
+
+
+*************************************************************************8
+
+8.
+
+PLSQL block to display the department name, name of the manager, number of employees in each department, and number of employees listed in job_history
+
+
+Declare
+
+    v_department_id departments.department_id%type;
+    v_department_name departments.department_name%type;
+    v_manager_name employees.employee_name%type;
+    v_employee_count number;
+    v_job_history_count number;
+Begin
+ 
+    FOR dept_rec IN (select department_id, department_name, manager_id from departments) loop
+        v_department_id := dept_rec.department_id;
+        v_department_name := dept_rec.department_name;
+
+       
+        select employee_name into v_manager_name
+        from employees
+        where employee_id = dept_rec.manager_id;
+
+   
+        select count(*) into v_employee_count
+        from employees
+        WHERE department_id = dept_rec.department_id;
+
+        
+        select count(*) into v_job_history_count
+        from job_history
+        where department_id = dept_rec.department_id;
+
+       
+        DBMS_output.put_line('Department Name: ' || v_department_name);
+        DBMS_output.put_line('Manager Name: ' || v_manager_name);
+        DBMS_output.put_line('Number of Employees: ' || v_employee_count);
+        DBMS_output.put_line('Number of Employees in Job History: ' || v_job_history_count);
+        DBMS_output.put_line('-----------------------------------');
+    end loop;
+Exception
+    When no_data_found then
+        DBMS_output.put_line('No data found.');
+    When others then
+        DBMS_output.put_line('An error occurred: ' || SQLERRM);
+End;
+/
+
+********************************************************************************888
+
+9:
+
+PLSQL block to show the uses of a variable in explicit cursor query, and the result set is affected with the value of the variable is incremented after every fetch
+
+
+Declare
+    
+    v_increment NUMBER := 1;
+
+    cursor employee_cursor IS
+        select employee_id, employee_name, salary
+        from employees
+        where department_id = 10; -- Replace with your desired condition
+ 
+    v_employee_id employees.employee_id%type;
+    v_employee_name employees.employee_name%type;
+    v_salary employees.salary%type;
+Begin
+    
+    open employee_cursor;
+
+    Loop
+        fetch employee_cursor INTO v_employee_id, v_employee_name, v_salary;
+        Exit when employee_cursor%notfound;
+        
+      
+        DBMS_output.put_line('Employee ID: ' || v_employee_id);
+        DBMS_output.put_line('Employee Name: ' || v_employee_name);
+        DBMS_output.put_line('Salary: ' || v_salary + v_increment); -- Increment the salary
+        
+        v_increment := v_increment + 1; -- Increment the variable after each fetch
+    end loop;
+
+    
+    close employee_cursor;
+    
+    DBMS_output.put_line('Cursor closed');
+Exception
+    When others then
+      
+        DBMS_output.put_line('An error occurred: ' || SQLERRM);
+End;
+/
+
+
+**********************************************************************************************
+
+
+10:
+
+PL/SQL package that contains a function to retrieve the total number of employees in a specific job title.
+
+
+
+Create or replace package EmployeeInfo as
+    
+    Function getEmployeeCountByJobTitle(job_title IN VARCHAR2) return number;
+End EmployeeInfo;
+
+/
+
+Create or replace package body EmployeeInfo as
+ 
+    Function getEmployeeCountByJobTitle(job_title IN VARCHAR2) return number is
+        total_count NUMBER := 0;
+    Begin
+        select count(*) into total_count
+        from employees
+        where upper(job_title) = upper(job_title);
+        
+        Return total_count;
+    Exception
+        When no_data_found then
+            Return 0; -- Return 0 if no employees found with the given job title
+    END getEmployeeCountByJobTitle;
+END EmployeeInfo;
+/
+
+********************************************************************************************

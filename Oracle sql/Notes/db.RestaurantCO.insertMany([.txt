@@ -1,0 +1,7 @@
+db.RestaurantCO.insertMany([
+	{ date: "2023-06-20", resid : 1235, name:"Res1", state: "Texas", cuisine: "American", score : 80 },
+	{ date: "2023-06-21", resid : 1234, name:"Res2", state: "Oklahoma", cuisine: "American", score : 95 },
+	{ date: "2023-06-22", resid : 1359, name:"William", state: "Oklahoma", cuisine: "Chinese", score : 80 },
+	{ date: "2023-06-23", resid : 1478, name:"Res4", state: "Florida", cuisine: "American", score : 96 },
+	{ date: "2023-06-24", resid : 1356, name:"Res5", state: "Texas", cuisine: "Chinese", score : 70 },
+]);
